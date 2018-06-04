@@ -10,7 +10,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
+import com.example.zane.bakingapp.objects.Steps;
 import com.example.zane.bakingapp.recipe.RecipeDetails;
 import com.example.zane.bakingapp.utils.Constants;
 import com.example.zane.bakingapp.utils.LoadRecipes;
@@ -55,14 +57,20 @@ public class MainActivity extends AppCompatActivity implements LoadRecipes.After
 
     @Override
     public void afterRecipesLoaded(final ArrayList<Recipe> recipeArrayList) {
-        Log.i(LOG_TAG, "After Recipes Loaded: " + recipeArrayList.size());
+        Log.i(LOG_TAG, "After Recipes Loaded Size: " + recipeArrayList.size());
+        Log.i(LOG_TAG, "Ingredient Array Size: " + recipeArrayList.get(0).getIngredients().size());
 
         RecipeAdapter adapter = new RecipeAdapter(recipeArrayList, new RecipeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Recipe recipe = recipeArrayList.get(position);
+                ArrayList<Ingredients> ingredientsArrayList = recipe.getIngredients();
+                ArrayList<Steps> stepsArrayList = recipe.getSteps();
+
                 Intent intent = new Intent(MainActivity.this, RecipeDetails.class);
                 intent.putExtra(Constants.INTENT_RECIPE_OBJECT, recipe);
+                intent.putExtra(Constants.INTENT_INGREDIENTS_ARRAY, ingredientsArrayList);
+                intent.putExtra(Constants.INTENT_STEPS_ARRAY, stepsArrayList);
                 startActivity(intent);
             }
         });

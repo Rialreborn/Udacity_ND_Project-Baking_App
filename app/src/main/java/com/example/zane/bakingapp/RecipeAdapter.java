@@ -87,7 +87,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
                 placeholderImg = R.drawable.cupcake;
             }
             if (uri.toString().equals("")) {
-                Log.i(LOG_TAG, "Background Image uri is empty or null");
+                Log.i(LOG_TAG, "Background Image uri is empty or null for: " + mRecipeList.get(position).getName());
                 Picasso.with(mContext)
                         .load(placeholderImg)
                         .placeholder(placeholderImg)

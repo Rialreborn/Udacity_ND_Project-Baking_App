@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/backGround"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -15,11 +16,13 @@
     <TextView
         android:layout_width="match_parent"
         android:text="@string/ingredient_title"
+        style="@style/ingredientTitle"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/tv_ingredients"
+        style="@style/ingredientList"
         tools:text="2 Cups Rainbows"
         android:layout_height="wrap_content" />
 

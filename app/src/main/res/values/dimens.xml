@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ingredientLeft">8dp</dimen>
+    <dimen name="ingredientTop">4dp</dimen>
+    <dimen name="recipeCardTitleLeft">4dp</dimen>
+    <dimen name="recipeCardTitleTop">8dp</dimen>
+    <dimen name="recipeCardTextLeft">4dp</dimen>
+    <dimen name="recipeCardTextTop">8dp</dimen>
+</resources>

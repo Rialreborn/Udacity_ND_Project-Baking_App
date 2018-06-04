@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.Toolbar;
 import com.example.zane.bakingapp.R;
 import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
+import com.example.zane.bakingapp.objects.Steps;
 import com.example.zane.bakingapp.utils.Constants;
 
 import java.util.ArrayList;
@@ -26,12 +28,16 @@ import butterknife.ButterKnife;
 
 public class RecipeDetails extends AppCompatActivity {
 
+    private static final String LOG_TAG = RecipeDetails.class.getSimpleName();
+
     @BindView(R.id.recipe_description_toolbar)
     Toolbar mToolbar;
     @BindView(R.id.tv_ingredients)
-    TextView mIngredients;
+    TextView mTvIngredients;
 
     Recipe mRecipe;
+    ArrayList<Ingredients> mIngredientsList;
+    ArrayList<Steps> mStepsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +47,8 @@ public class RecipeDetails extends AppCompatActivity {
 
         ButterKnife.bind(RecipeDetails.this);
 
+        mStepsList = getIntent().getParcelableArrayListExtra(Constants.INTENT_STEPS_ARRAY);
+        mIngredientsList = getIntent().getParcelableArrayListExtra(Constants.INTENT_INGREDIENTS_ARRAY);
         mRecipe = getIntent().getParcelableExtra(Constants.INTENT_RECIPE_OBJECT);
         if (mRecipe == null) {
             finish();
@@ -49,29 +57,41 @@ public class RecipeDetails extends AppCompatActivity {
 
         mToolbar.setTitle(mRecipe.getName());
 
+        mToolbar.setBackgroundColor(getColor(R.color.colorPrimary));
+        mToolbar.setTitleTextColor(getColor(R.color.white));
+
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
+        setViews();
     }
 
-//    private String createIngredientList(){
-//        StringBuilder builder;
-//        ArrayList<Ingredients> ingredientsArrayList = mRecipe.getIngredients();
-//        Recipe recipe;
-//        int quantity;
-//        String measure;
-//        String ingredient;
-//
-//
-//        for (int i = 0; i < ingredientsArrayList.size(); i++) {
-//            quantity =
-//        }
-//
-//
-//
-//
-//        return builder.toString();
-//    }
+    private void setViews() {
+        Log.i(LOG_TAG, "Recipe Name: " + mRecipe.getName());
+        Log.i(LOG_TAG, "Ingredient ArraySize: " + mIngredientsList.size());
+        mTvIngredients.setText(createIngredientList());
+    }
+
+    private String createIngredientList(){
+        StringBuilder builder = new StringBuilder();
+        Ingredients ingredients;
+        int quantity;
+        String measure;
+        String singleIngredient;
+
+        for (int i = 0; i < mIngredientsList.size(); i++) {
+            ingredients = mIngredientsList.get(i);
+            quantity = ingredients.getQuantity();
+            measure = ingredients.getMeasure();
+            singleIngredient = ingredients.getIngredient();
+            if (measure.contains("CUP")) {
+                measure += "S";
+            }
+            builder.append("\u2022 " + quantity + " " + measure + " " + singleIngredient + "\n");
+        }
+
+        return builder.toString();
+    }
 }
