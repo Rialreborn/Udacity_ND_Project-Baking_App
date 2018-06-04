@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/dialog_holo_light_frame"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:layout_margin="6dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cake" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvRecipeCardTitle"
+            style="@style/recipeCardTitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Cupcake" />
+
+        <TextView
+            android:id="@+id/tvRecipeCardServings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/recipeCardServingTextStyle"
+            tools:text="Serves: 8" />
+
+    </LinearLayout>
+
+</LinearLayout>
