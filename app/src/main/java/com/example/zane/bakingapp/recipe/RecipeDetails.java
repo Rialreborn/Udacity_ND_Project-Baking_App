@@ -1,12 +1,11 @@
 package com.example.zane.bakingapp.recipe;
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -14,8 +13,9 @@ import android.widget.Toolbar;
 import com.example.zane.bakingapp.R;
 import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
-import com.example.zane.bakingapp.objects.Steps;
+import com.example.zane.bakingapp.objects.Step;
 import com.example.zane.bakingapp.utils.Constants;
+import com.example.zane.bakingapp.utils.CustomiseWindow;
 
 import java.util.ArrayList;
 
@@ -32,12 +32,14 @@ public class RecipeDetails extends AppCompatActivity {
 
     @BindView(R.id.recipe_description_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.tv_ingredients)
+    @BindView(R.id.tv_details_ingredients)
     TextView mTvIngredients;
+    @BindView(R.id.rv_steps)
+    RecyclerView mRvSteps;
 
     Recipe mRecipe;
     ArrayList<Ingredients> mIngredientsList;
-    ArrayList<Steps> mStepsList;
+    ArrayList<Step> mStepsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,15 +58,12 @@ public class RecipeDetails extends AppCompatActivity {
         }
 
         mToolbar.setTitle(mRecipe.getName());
-
+        String servings = getString(R.string.servings) + " " + mRecipe.getServings();
+        mToolbar.setSubtitle(servings);
         mToolbar.setBackgroundColor(getColor(R.color.colorPrimary));
         mToolbar.setTitleTextColor(getColor(R.color.white));
 
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-
+        CustomiseWindow.customWindow(this);
         setViews();
     }
 
@@ -72,6 +71,20 @@ public class RecipeDetails extends AppCompatActivity {
         Log.i(LOG_TAG, "Recipe Name: " + mRecipe.getName());
         Log.i(LOG_TAG, "Ingredient ArraySize: " + mIngredientsList.size());
         mTvIngredients.setText(createIngredientList());
+
+        StepsAdapter stepsAdapter = new StepsAdapter(mStepsList, this, new StepsAdapter.OnStepClickListener() {
+            @Override
+            public void onStepClicked(int position) {
+
+
+                Intent intent = new Intent(RecipeDetails.this, StepDetails.class);
+                intent.putExtra(Constants.INTENT_STEPS_ARRAY, mStepsList);
+                intent.putExtra(Constants.INTENT_STEP_POSITION, position);
+                startActivity(intent);
+            }
+        });
+        mRvSteps.setHasFixedSize(true);
+        mRvSteps.setAdapter(stepsAdapter);
     }
 
     private String createIngredientList(){
@@ -94,4 +107,5 @@ public class RecipeDetails extends AppCompatActivity {
 
         return builder.toString();
     }
+
 }

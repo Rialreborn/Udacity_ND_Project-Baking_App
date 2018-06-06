@@ -24,6 +24,10 @@
         <activity android:name=".recipe.RecipeDetails"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity android:name=".recipe.StepDetails"
+            android:parentActivityName=".recipe.RecipeDetails"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            />
 
     </application>
 

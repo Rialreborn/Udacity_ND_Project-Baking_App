@@ -1,21 +1,18 @@
 package com.example.zane.bakingapp.utils;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
-import com.example.zane.bakingapp.objects.Steps;
+import com.example.zane.bakingapp.objects.Step;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -44,7 +41,8 @@ public class JsonUtils {
                 int id = recipe.optInt(Constants.JSON_RECIPE_ID);
                 String name = recipe.optString(Constants.JSON_RECIPE_NAME);
                 ArrayList<Ingredients> ingredientsArrayList = getIngredients(recipe);
-                ArrayList<Steps> stepsArrayList = getSteps(recipe);
+                ArrayList<Step> stepsArrayList = getSteps(recipe);
+                Log.i(LOG_TAG, "Step for " + name + ": " + stepsArrayList.size());
                 int servings = recipe.optInt(Constants.JSON_RECIPE_SERVINGS);
                 String imageUrl = recipe.optString(Constants.JSON_RECIPE_IMAGE);
 
@@ -82,9 +80,9 @@ public class JsonUtils {
         return ingredientsArrayList;
     }
 
-    private static ArrayList<Steps> getSteps(JSONObject steps){
+    private static ArrayList<Step> getSteps(JSONObject steps){
 
-        ArrayList<Steps> stepsArrayList = new ArrayList<>();
+        ArrayList<Step> stepsArrayList = new ArrayList<>();
 
         try {
             JSONArray jsonStepsArray = steps.getJSONArray(Constants.JSON_RECIPE_STEPS_ARRAY);
@@ -97,7 +95,7 @@ public class JsonUtils {
                 String videoURL = jsonObject.optString(Constants.JSON_STEPS_VIDEO_URL);
                 String thumbnailURL = jsonObject.optString(Constants.JSON_STEPS_THUMBNAIL_URL);
 
-                stepsArrayList.add(new Steps(id, shortDescription, longDescription, videoURL, thumbnailURL));
+                stepsArrayList.add(new Step(id, shortDescription, longDescription, videoURL, thumbnailURL));
             }
         } catch (JSONException e) {
             e.printStackTrace();

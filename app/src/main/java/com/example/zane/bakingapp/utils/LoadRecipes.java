@@ -2,20 +2,9 @@ package com.example.zane.bakingapp.utils;
 
 import android.os.AsyncTask;
 
-import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
-import com.example.zane.bakingapp.objects.Steps;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by Zane on 03/06/2018.

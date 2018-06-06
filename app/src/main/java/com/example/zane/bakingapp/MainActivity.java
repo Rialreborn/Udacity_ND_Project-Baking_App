@@ -6,15 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
-import com.example.zane.bakingapp.objects.Steps;
+import com.example.zane.bakingapp.objects.Step;
 import com.example.zane.bakingapp.recipe.RecipeDetails;
 import com.example.zane.bakingapp.utils.Constants;
+import com.example.zane.bakingapp.utils.CustomiseWindow;
 import com.example.zane.bakingapp.utils.LoadRecipes;
 import com.squareup.picasso.Picasso;
 
@@ -47,10 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoadRecipes.After
 
         mToolbar.setTitle(R.string.app_title);
 
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        CustomiseWindow.customWindow(this);
 
         new LoadRecipes(this).execute();
     }
@@ -65,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements LoadRecipes.After
             public void onItemClick(int position) {
                 Recipe recipe = recipeArrayList.get(position);
                 ArrayList<Ingredients> ingredientsArrayList = recipe.getIngredients();
-                ArrayList<Steps> stepsArrayList = recipe.getSteps();
+                ArrayList<Step> stepsArrayList = recipe.getSteps();
 
                 Intent intent = new Intent(MainActivity.this, RecipeDetails.class);
                 intent.putExtra(Constants.INTENT_RECIPE_OBJECT, recipe);

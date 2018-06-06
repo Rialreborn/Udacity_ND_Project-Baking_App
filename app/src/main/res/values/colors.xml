@@ -6,7 +6,22 @@
     <color name="colorAccent">#616161</color>
     <color name="colorAccentDark">#373737</color>
     <color name="colorAccentLight">#8e8e8e</color>
-    <color name="background">#efefef</color>
+
+
+
+    <!-- Recipe Details -->
+    <color name="backgroundRecipeDetail">#efefef</color>
+    <color name="cardColorRecipeDetail">#cfcfcf</color>
+
+    <!-- Main View -->
+    <color name="backgroundMain">#cfcfcf</color>
+    <color name="cardColorMain">#efefef</color>
+
+
+
+    <color name="cardPress">#4D8e8e8e</color>
+
+
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 </resources>

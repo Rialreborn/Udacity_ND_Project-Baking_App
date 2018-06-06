@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/steps_rv_selector"
+    style="@style/stepCardLayout"
+    android:elevation="1dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/tv_step_short_description"
+        style="@style/stepInstructions"
+        tools:text="Step 2"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

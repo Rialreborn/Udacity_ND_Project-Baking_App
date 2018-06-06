@@ -27,4 +27,5 @@ public class Constants {
     public static final String INTENT_RECIPE_OBJECT = "object";
     public static final String INTENT_INGREDIENTS_ARRAY = "ingredients_array";
     public static final String INTENT_STEPS_ARRAY = "steps_array";
+    public static final String INTENT_STEP_POSITION = "step_position";
 }

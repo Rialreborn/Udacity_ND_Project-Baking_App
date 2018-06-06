@@ -8,9 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="backGround">
-        <item name="android:background">@color/background</item>
-    </style>
+    <!-- Main Screen -->
 
     <style name="recipeCardTitleTextStyle">
         <item name="android:textSize">22sp</item>
@@ -26,9 +24,11 @@
         <item name="android:layout_marginTop">@dimen/recipeCardTextTop</item>
         <item name="android:layout_marginStart">@dimen/recipeCardTextLeft</item>
         <item name="android:layout_marginLeft">@dimen/recipeCardTextLeft</item>
-        <item name="android:color">@color/background</item>
+        <item name="android:color">@color/backgroundMain</item>
     </style>
 
+    <!--Details Screen-->
+    <!--Ingredients -->
     <style name="ingredientTitle">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
@@ -37,15 +37,43 @@
         <item name="android:layout_marginLeft">@dimen/ingredientLeft</item>
         <item name="android:textColor">@color/colorAccentDark</item>
     </style>
-    
-    <style name="ingredientList">
+    <style name="ingredientsList">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginTop">@dimen/ingredientTop</item>
         <item name="android:layout_marginStart">@dimen/ingredientLeft</item>
         <item name="android:layout_marginLeft">@dimen/ingredientLeft</item>
-        <item name="android:color">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <!--Details Screen-->
+    <!-- Serving -->
+    <style name="recipeDetailServings">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">@dimen/servingTop</item>
+        <item name="android:layout_marginStart">@dimen/servingLeft</item>
+        <item name="android:layout_marginLeft">@dimen/servingLeft</item>
+        <item name="android:color">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccentDark</item>
+    </style>
+
+
+    <!-- Details Screen-->
+    <!-- Step Cards -->
+    <style name="stepCardLayout">
+        <item name="android:layout_marginTop">@dimen/stepTopMargin</item>
+        <item name="android:layout_marginStart">@dimen/stepLeftMargin</item>
+        <item name="android:layout_marginLeft">@dimen/stepLeftMargin</item>
+        <item name="android:layout_marginRight">@dimen/stepRightMargin</item>
+        <item name="android:layout_marginEnd">@dimen/stepRightMargin</item>
+        <item name="android:layout_marginBottom">@dimen/stepBottomMargin</item>
+    </style>
+    <style name="stepInstructions">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">@dimen/ingredientTop</item>
+        <item name="android:layout_marginStart">@dimen/ingredientLeft</item>
+        <item name="android:layout_marginLeft">@dimen/ingredientLeft</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
 
 
 </resources>

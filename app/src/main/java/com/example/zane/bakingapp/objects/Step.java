@@ -12,9 +12,9 @@ import java.net.URL;
  * Created by Zane on 03/06/2018.
  */
 
-public class Steps implements Parcelable{
+public class Step implements Parcelable{
 
-    private static final String LOG_TAG = Steps.class.getSimpleName();
+    private static final String LOG_TAG = Step.class.getSimpleName();
 
     private int mId;
     private String mShortDescription;
@@ -22,7 +22,7 @@ public class Steps implements Parcelable{
     private String mVideoUrl;
     private String mImageUrl;
 
-    public Steps(int id, String shortDescription, String description, String videoUrl, String imageUrl){
+    public Step(int id, String shortDescription, String description, String videoUrl, String imageUrl){
         this.mId = id;
         this.mShortDescription = shortDescription;
         this.mDescription = description;
@@ -30,7 +30,7 @@ public class Steps implements Parcelable{
         this.mImageUrl = imageUrl;
     }
 
-    protected Steps(Parcel in) {
+    protected Step(Parcel in) {
         mId = in.readInt();
         mShortDescription = in.readString();
         mDescription = in.readString();
@@ -38,15 +38,15 @@ public class Steps implements Parcelable{
         mImageUrl = in.readString();
     }
 
-    public static final Creator<Steps> CREATOR = new Creator<Steps>() {
+    public static final Creator<Step> CREATOR = new Creator<Step>() {
         @Override
-        public Steps createFromParcel(Parcel in) {
-            return new Steps(in);
+        public Step createFromParcel(Parcel in) {
+            return new Step(in);
         }
 
         @Override
-        public Steps[] newArray(int size) {
-            return new Steps[size];
+        public Step[] newArray(int size) {
+            return new Step[size];
         }
     };
 
@@ -56,24 +56,12 @@ public class Steps implements Parcelable{
 
     public String getDescription() {return mDescription;}
 
-    public URL getVideoUrl() {
-        return convertStringToUrl(mVideoUrl);
+    public Uri getVideoUrl() {
+        return Uri.parse(mVideoUrl);
     }
 
-    public URL getImageUrl() {
-        return convertStringToUrl(mImageUrl);
-    }
-
-    private URL convertStringToUrl(String urlString) {
-
-        URL url = null;
-        try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Malformed URL: " + urlString);
-        }
-
-        return url;
+    public Uri getImageUrl() {
+        return Uri.parse(mImageUrl);
     }
 
     @Override

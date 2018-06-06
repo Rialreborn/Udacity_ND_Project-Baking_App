@@ -3,10 +3,7 @@ package com.example.zane.bakingapp.objects;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -21,11 +18,11 @@ public class Recipe implements Parcelable{
     private int mId;
     private String mName;
     private ArrayList<Ingredients> mIngredients;
-    private ArrayList<Steps> mSteps;
+    private ArrayList<Step> mSteps;
     private int mServings;
     private String mImageUrlString;
 
-    public Recipe(int id, String name, ArrayList<Ingredients> ingredients, ArrayList<Steps> steps, int servings, String imageUrlString){
+    public Recipe(int id, String name, ArrayList<Ingredients> ingredients, ArrayList<Step> steps, int servings, String imageUrlString){
         this.mId = id;
         this.mName = name;
         this.mIngredients = ingredients;
@@ -59,7 +56,7 @@ public class Recipe implements Parcelable{
 
     public ArrayList<Ingredients> getIngredients() {return mIngredients;}
 
-    public ArrayList<Steps> getSteps() {return mSteps;}
+    public ArrayList<Step> getSteps() {return mSteps;}
 
     public int getServings() {return mServings;}
 

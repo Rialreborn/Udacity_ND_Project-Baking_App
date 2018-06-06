@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">BakingApp</string>
-    <string name="servings">Servings: </string>
+    <string name="servings">Serves: </string>
     <string name="baking_backdrop_content_description">Baking Backdrop Image</string>
     <string name="app_title">Baking Company</string>
     <string name="ingredient_title">Ingredients:</string>
     <string name="detail_intent_error">Error Loading Recipe Details</string>
+    <string name="step">Step</string>
 </resources>

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/dialog_holo_light_frame"
+    android:elevation="2dp"
+    style="@style/stepCardLayout"
+    android:background="@drawable/recipe_rv_selector"
     android:orientation="horizontal">
 
     <ImageView

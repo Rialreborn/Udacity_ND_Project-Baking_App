@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="ingredientLeft">8dp</dimen>
-    <dimen name="ingredientTop">4dp</dimen>
+    <!-- Main Activity -->
     <dimen name="recipeCardTitleLeft">4dp</dimen>
     <dimen name="recipeCardTitleTop">8dp</dimen>
     <dimen name="recipeCardTextLeft">4dp</dimen>
     <dimen name="recipeCardTextTop">8dp</dimen>
+
+    <!-- Recipe Details -->
+    <dimen name="ingredientLeft">10dp</dimen>
+    <dimen name="ingredientTop">2dp</dimen>
+    <dimen name="servingLeft">10dp</dimen>
+    <dimen name="servingTop">2dp</dimen>
+
+    <!-- Step Cards -->
+    <dimen name="stepLeftMargin">6dp</dimen>
+    <dimen name="stepRightMargin">6dp</dimen>
+    <dimen name="stepTopMargin">8dp</dimen>
+    <dimen name="stepBottomMargin">4dp</dimen>
+
 </resources>
