@@ -1,13 +1,18 @@
 package com.example.zane.bakingapp.recipe;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
 import com.example.zane.bakingapp.R;
 import com.example.zane.bakingapp.objects.Step;
 
@@ -18,6 +23,8 @@ import java.util.ArrayList;
  */
 
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHolder>{
+
+    private static final String LOG_TAG = StepsAdapter.class.getSimpleName();
 
     ArrayList<Step> mStepsArrayList;
     Context mContext;
@@ -55,7 +62,6 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
             super(itemView);
             tvStepShortDes = itemView.findViewById(R.id.tv_step_short_description);
             itemView.setOnClickListener(this);
-
         }
 
         private void bind(int position){

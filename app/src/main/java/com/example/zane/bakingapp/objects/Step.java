@@ -60,7 +60,7 @@ public class Step implements Parcelable{
         return Uri.parse(mVideoUrl);
     }
 
-    public Uri getImageUrl() {
+    public Uri getThumbnailUri() {
         return Uri.parse(mImageUrl);
     }
 

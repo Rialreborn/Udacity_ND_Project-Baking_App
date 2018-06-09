@@ -3,7 +3,7 @@
     <item android:state_pressed="true">
         <shape
             android:shape="rectangle">
-            <solid android:color="@color/cardPress"/>
+            <solid android:color="@color/cardPressRecipes"/>
 
             <padding
                 android:bottom="5dp"
@@ -18,7 +18,7 @@
     <item android:state_focused="true">
         <shape
             android:shape="rectangle">
-            <solid android:color="@color/cardPress"/>
+            <solid android:color="@color/cardPressRecipes"/>
 
             <padding
                 android:bottom="5dp"

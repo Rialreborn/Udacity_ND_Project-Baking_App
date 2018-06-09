@@ -1,12 +1,13 @@
 package com.example.zane.bakingapp.recipe;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -42,68 +43,130 @@ public class StepDetails extends AppCompatActivity {
 
     @BindView(R.id.step_overview_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.player_view)
+    @Nullable @BindView(R.id.player_view)
     SimpleExoPlayerView playerView;
     @BindView(R.id.step_details)
     TextView tvStepDetails;
+    @BindView(R.id.iv_left_arrow)
+    ImageButton ivPreviousStep;
+    @BindView(R.id.iv_right_arrow)
+    ImageButton ivNextStep;
 
-    ArrayList<Step> mStepArray;
-    Uri mVideoUri;
+    private int mPosition;
+    private Uri mVideoUri;
+    private Uri mThumbnailUri;
+    private String mUserAgent;
+    private Step mStep;
     private SimpleExoPlayer mExoPlayer;
-    private static MediaSessionCompat mMediaSession;
-    private PlaybackStateCompat.Builder mStateBuilder;
-
+    private ArrayList<Step> mStepArray;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.step_overview);
-
-        ButterKnife.bind(StepDetails.this);
-
         mStepArray = getIntent().getParcelableArrayListExtra(Constants.INTENT_STEPS_ARRAY);
+        mPosition = getIntent().getIntExtra(Constants.INTENT_STEP_POSITION, 0);
+        mStep = mStepArray.get(mPosition);
+        mVideoUri = mStep.getVideoUrl();
+        mThumbnailUri = mStep.getThumbnailUri();
+        Uri playerUri = null;
 
-        int position = getIntent().getIntExtra(Constants.INTENT_STEP_POSITION, 0);
-        mVideoUri = mStepArray.get(position).getVideoUrl();
-        Step step = mStepArray.get(position);
 
-        Log.i(LOG_TAG, "Uri for videoUri: " + mVideoUri);
-        if(!mVideoUri.toString().equals("")) {
-            initializePlayer(mVideoUri);
+        if (mVideoUri != null && !mVideoUri.toString().equals("")) {
+            Log.i(LOG_TAG, "Uri for videoUri: " + mVideoUri);
+
+            setContentView(R.layout.step_overview);
+            playerUri = mVideoUri;
+        } else if (mThumbnailUri != null && !mThumbnailUri.toString().equals("")) {
+            Log.i(LOG_TAG, "Uri for thumbnail Uri: " + mThumbnailUri);
+
+            setContentView(R.layout.step_overview);
+            playerUri = mThumbnailUri;
+        } else {
+            setContentView(R.layout.step_overview_no_video);
         }
 
+        ButterKnife.bind(StepDetails.this);
+        initializePlayer(playerUri);
+
         CustomiseWindow.customWindow(this);
+        setViews();
+        setToolbar();
+    }
+
+    private void setViews() {
+        if (mPosition == 0) {
+            ivPreviousStep.setVisibility(View.INVISIBLE);
+        } else if (mPosition == mStepArray.size() - 1) {
+            ivNextStep.setVisibility(View.INVISIBLE);
+        }
+
+        tvStepDetails.setText(mStep.getDescription());
+    }
 
 
-        toolbar.setTitle(step.getShortDescription());
-        toolbar.setBackgroundColor(getColor(R.color.colorPrimary));
-        toolbar.setTitleTextColor(getColor(R.color.white));
+    public void loadNextOrPreviousStep(View view) {
+        int id = view.getId();
 
+        if (id == findViewById(R.id.iv_right_arrow).getId()) {
+            mPosition += 1;
+        } else if (id == findViewById(R.id.iv_left_arrow).getId()) {
+            mPosition -= 1;
+        }
 
-        tvStepDetails.setText(step.getDescription());
+        reloadActivity(id);
+    }
+
+    private void reloadActivity(int direction) {
+        Intent intent = getIntent();
+        intent.putExtra(Constants.INTENT_STEP_POSITION, mPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+        if (direction == findViewById(R.id.iv_left_arrow).getId()) {
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        } else {
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+        }
+
     }
 
     private void initializePlayer(Uri videoUri) {
-        if (mExoPlayer == null) {
+        if (mExoPlayer == null && playerView != null) {
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
 
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
             playerView.setPlayer(mExoPlayer);
 
-            String userAgent = Util.getUserAgent(this, "BakingApp");
+            mUserAgent = Util.getUserAgent(this, "BakingApp");
+
             MediaSource mediaSource = new ExtractorMediaSource(videoUri, new DefaultDataSourceFactory(
-                    this, userAgent), new DefaultExtractorsFactory(), null, null);
+                    this, mUserAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
             mExoPlayer.setPlayWhenReady(true);
         }
     }
 
     private void releasePlayer() {
-        mExoPlayer.stop();
-        mExoPlayer.release();
-        mExoPlayer = null;
+        if (mExoPlayer != null) {
+            mExoPlayer.stop();
+            mExoPlayer.release();
+            mExoPlayer = null;
+        }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        releasePlayer();
+    }
+
+    private void setToolbar() {
+        toolbar.setTitle(mStep.getShortDescription());
+        toolbar.setBackgroundColor(getColor(R.color.colorPrimary));
+        toolbar.setTitleTextColor(getColor(R.color.white));
+    }
+
 
 }

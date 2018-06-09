@@ -12,10 +12,14 @@
     <dimen name="servingLeft">10dp</dimen>
     <dimen name="servingTop">2dp</dimen>
 
-    <!-- Step Cards -->
+    <!-- Step RV Cards -->
     <dimen name="stepLeftMargin">6dp</dimen>
     <dimen name="stepRightMargin">6dp</dimen>
     <dimen name="stepTopMargin">8dp</dimen>
     <dimen name="stepBottomMargin">4dp</dimen>
+
+    <!-- Step Details -->
+    <dimen name="stepDetailTopMargin">8dp</dimen>
+    <dimen name="stepDetailSideMargin">8dp</dimen>
 
 </resources>

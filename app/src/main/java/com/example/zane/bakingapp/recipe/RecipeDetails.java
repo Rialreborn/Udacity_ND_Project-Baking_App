@@ -57,14 +57,9 @@ public class RecipeDetails extends AppCompatActivity {
             Toast.makeText(this, R.string.detail_intent_error, Toast.LENGTH_SHORT).show();
         }
 
-        mToolbar.setTitle(mRecipe.getName());
-        String servings = getString(R.string.servings) + " " + mRecipe.getServings();
-        mToolbar.setSubtitle(servings);
-        mToolbar.setBackgroundColor(getColor(R.color.colorPrimary));
-        mToolbar.setTitleTextColor(getColor(R.color.white));
-
         CustomiseWindow.customWindow(this);
         setViews();
+        setToolbar();
     }
 
     private void setViews() {
@@ -106,6 +101,15 @@ public class RecipeDetails extends AppCompatActivity {
         }
 
         return builder.toString();
+    }
+
+    private void setToolbar() {
+        mToolbar.setTitle(mRecipe.getName());
+        String servings = getString(R.string.servings) + " " + mRecipe.getServings();
+        mToolbar.setSubtitle(servings);
+        mToolbar.setSubtitleTextColor(getColor(R.color.colorAccentLight));
+        mToolbar.setBackgroundColor(getColor(R.color.colorPrimary));
+        mToolbar.setTitleTextColor(getColor(R.color.white));
     }
 
 }

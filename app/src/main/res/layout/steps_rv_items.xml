@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:id="@+id/tv_step_short_description"
         style="@style/stepInstructions"
+        android:layout_weight="0"
         tools:text="Step 2"
         android:layout_height="wrap_content" />
 
