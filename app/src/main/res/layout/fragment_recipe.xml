@@ -9,21 +9,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Toolbar
-        android:id="@+id/recipe_description_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
+
+
             <TextView
                 style="@style/ingredientTitle"
+                android:id="@+id/ingredientTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ingredient_title" />
@@ -43,7 +39,6 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 app:layoutManager="LinearLayoutManager"
-                tools:context="com.example.zane.bakingapp.recipe.RecipeDetails"
-                tools:listitem="@layout/steps_rv_items" />
+                tools:listitem="@layout/rv_item_step" />
         </LinearLayout>
 </LinearLayout>

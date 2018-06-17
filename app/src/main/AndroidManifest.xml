@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zane.bakingapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +22,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".recipe.RecipeDetails"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
-        <activity android:name=".recipe.StepDetails"
-            android:parentActivityName=".recipe.RecipeDetails"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            />
+        <receiver android:name=".WidgetIngredient">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_ingredient_info" />
+        </receiver>
     </application>
 
 </manifest>

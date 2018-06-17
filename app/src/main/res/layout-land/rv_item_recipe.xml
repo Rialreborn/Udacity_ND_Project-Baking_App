@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/stepCardLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/recipe_rv_selector"
+    android:elevation="2dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cake" />
+
+
+    <TextView
+        android:id="@+id/tvRecipeCardTitle"
+        style="@style/recipeCardTitleTextStyle"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        tools:text="Cupcake" />
+
+    <TextView
+        android:id="@+id/tvRecipeCardServings"
+        style="@style/recipeCardServingTextStyle"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        tools:text="Serves: 8" />
+
+
+</LinearLayout>

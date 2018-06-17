@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundRecipeDetail"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:id="@+id/text_view"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/rv_steps"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            style="@style/ingredientTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Title" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ingredientTitle"
+                android:layout_width="match_parent"
+                tools:text="Ingredients:"
+                android:layout_height="wrap_content"
+                android:text="@string/ingredient_title" />
+
+            <TextView
+                android:id="@+id/tv_details_ingredients"
+                style="@style/ingredientsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="2 Cups Rainbows" />
+        </LinearLayout>
+
+    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_steps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/rv_item_step"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/text_view"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -25,6 +25,7 @@
         <item name="android:layout_marginStart">@dimen/recipeCardTextLeft</item>
         <item name="android:layout_marginLeft">@dimen/recipeCardTextLeft</item>
         <item name="android:color">@color/backgroundMain</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <!--Details Screen-->

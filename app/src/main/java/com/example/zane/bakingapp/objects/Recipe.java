@@ -6,10 +6,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**
- * Created by Zane on 03/06/2018.
- */
-
 public class Recipe implements Parcelable{
 
     private static final String LOG_TAG = Recipe.class.getSimpleName();

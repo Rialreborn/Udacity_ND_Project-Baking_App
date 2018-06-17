@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.zane.bakingapp.objects.Recipe;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,13 +20,13 @@ import java.util.ArrayList;
  * Created by Zane on 03/06/2018.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHolder>{
+public class AdapterRecipeList extends RecyclerView.Adapter<AdapterRecipeList.RecipeHolder>{
 
-    private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
+    private static final String LOG_TAG = AdapterRecipeList.class.getSimpleName();
     private ArrayList<Recipe> mRecipeList;
     private OnItemClickListener mOnItemClickListener;
 
-    public RecipeAdapter(ArrayList<Recipe> recipeArrayList, OnItemClickListener onItemClickListener){
+    public AdapterRecipeList(ArrayList<Recipe> recipeArrayList, OnItemClickListener onItemClickListener){
         this.mRecipeList = recipeArrayList;
         this.mOnItemClickListener = onItemClickListener;
     }
@@ -36,7 +35,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
     @Override
     public RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_rv_item, parent, false);
+                .inflate(R.layout.rv_item_recipe, parent, false);
         return new RecipeHolder(view);
     }
 
@@ -87,13 +86,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
                 placeholderImg = R.drawable.cupcake;
             }
             if (uri.toString().equals("")) {
-                Log.i(LOG_TAG, "Background Image uri is empty or null for: " + mRecipeList.get(position).getName());
                 Picasso.with(mContext)
                         .load(placeholderImg)
                         .placeholder(placeholderImg)
                         .into(mBackground);
             } else {
-                Log.i(LOG_TAG, "Background Image uri: " + uri.toString());
                 Picasso.with(mContext)
                         .load(uri)
                         .placeholder(placeholderImg)

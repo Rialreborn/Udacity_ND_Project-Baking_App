@@ -1,8 +1,5 @@
 package com.example.zane.bakingapp.utils;
 
-/**
- * Created by Zane on 03/06/2018.
- */
 
 public class Constants {
 
@@ -23,9 +20,4 @@ public class Constants {
     public static final String JSON_STEPS_VIDEO_URL = "videoURL";
     public static final String JSON_STEPS_THUMBNAIL_URL = "thumbnailURL";
 
-
-    public static final String INTENT_RECIPE_OBJECT = "object";
-    public static final String INTENT_INGREDIENTS_ARRAY = "ingredients_array";
-    public static final String INTENT_STEPS_ARRAY = "steps_array";
-    public static final String INTENT_STEP_POSITION = "step_position";
 }

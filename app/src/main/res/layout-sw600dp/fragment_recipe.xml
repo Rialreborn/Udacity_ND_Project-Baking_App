@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgroundRecipeDetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            style="@style/ingredientTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Title" />
+
+        <TextView
+            style="@style/ingredientTitle"
+            android:id="@+id/ingredientTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredient_title" />
+
+        <TextView
+            android:id="@+id/tv_details_ingredients"
+            style="@style/ingredientsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="2 Cups Rainbows" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/rv_item_step" />
+    </LinearLayout>
+</LinearLayout>

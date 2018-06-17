@@ -6,4 +6,7 @@
     <string name="ingredient_title">Ingredients:</string>
     <string name="detail_intent_error">Error Loading Recipe Details</string>
     <string name="step">Step</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="no_connection">Please Check Network Connection</string>
 </resources>
