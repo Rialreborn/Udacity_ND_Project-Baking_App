@@ -23,17 +23,20 @@
             <FrameLayout
                 android:id="@+id/fragment_main"
                 android:layout_width="match_parent"
+
                 android:layout_margin="4dp"
                 android:layout_height="match_parent"/>
 
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_gravity="center"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
             android:id="@+id/progress_bar"
+            android:visibility="gone"
 
             android:indeterminateTint="@color/colorPrimary"
-            android:visibility="gone" />
+             />
 
         <TextView
             android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ public class FragmentRecipeList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.i(LOG_TAG, "MSG! onCreateView started.");
+        Log.i(LOG_TAG, "MSG! onCreateView()");
 
         View view = inflater.inflate(R.layout.fragment_master_list, container, false);
         ButterKnife.bind(this, view);
@@ -41,9 +42,22 @@ public class FragmentRecipeList extends Fragment {
 
         if (mRecipeArray != null && mRecipeArray.size() > 0) {
             setRvRecipeList();
+        } else {
+            Log.i(LOG_TAG, "MSG! Recipe Array List empty!");
         }
 
+        updateToolbar();
+
         return view;
+    }
+
+    private void updateToolbar() {
+        Log.i(LOG_TAG, "MSG! updateViews()");
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        if (toolbar != null && !MainActivity.tabletUsed) {
+            toolbar.setTitle(R.string.app_title);
+        }
     }
 
     private void setRvRecipeList() {

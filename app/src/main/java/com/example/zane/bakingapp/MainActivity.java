@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
 import com.example.zane.bakingapp.utils.LoadRecipes;
 import com.example.zane.bakingapp.utils.SimpleIdlingResource;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoadRecipes.After
     public static boolean tabletUsed;
     public static boolean screenLand;
     public static ArrayList<Recipe> recipeArray;
+    public static ArrayList<Ingredients> ingredientArray;
     public static int recipePosition;
     public static int stepPosition;
 
@@ -127,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements LoadRecipes.After
 
         startFragmentization(null);
     }
+
+
 
     private void startFragmentization(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "MSG! startFragmentization!");

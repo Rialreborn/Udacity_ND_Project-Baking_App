@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.zane.bakingapp.objects.Recipe;
 import com.example.zane.bakingapp.objects.Step;
-import com.example.zane.bakingapp.utils.LoadRecipes;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -39,6 +38,8 @@ import butterknife.ButterKnife;
 public class FragmentStepDetails extends Fragment implements View.OnClickListener {
 
     private static final String LOG_TAG = FragmentStepDetails.class.getSimpleName();
+    private static final String EXOPLAYER_POSITION = "exoplayer_position";
+    private static final String EXOPLAYER_STATE = "exoplayer_state";
 
     @Nullable
     @BindView(R.id.player_view)
@@ -56,10 +57,13 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
     @BindView(R.id.step_title)
     TextView tvTitle;
 
+
     private int mRecipePosition;
     private int mStepPosition;
     private SimpleExoPlayer mExoPlayer;
     private ArrayList<Step> mStepArray;
+    private long mPlayerPosition;
+    private boolean mPlayerPlayWhenReady;
     ArrayList<Recipe> mRecipeArrayList;
     Step mStep;
     Uri mVideoUri;
@@ -76,13 +80,20 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
 
         mRecipeArrayList = MainActivity.recipeArray;
 
+        if (savedInstanceState != null) {
+            mPlayerPosition = savedInstanceState.getLong(EXOPLAYER_POSITION);
+            mPlayerPlayWhenReady = savedInstanceState.getBoolean(EXOPLAYER_STATE);
+        } else {
+            mPlayerPlayWhenReady = true;
+        }
+
         if (mRecipeArrayList != null && mRecipeArrayList.size() > 0) {
             mRecipePosition = MainActivity.recipePosition;
             mStepPosition = MainActivity.stepPosition;
             mStepArray = mRecipeArrayList.get(mRecipePosition).getSteps();
             mStep = mStepArray.get(mStepPosition);
 
-            setViews();
+            setupNextPreviousButtonListener();
             updateViews();
         }
 
@@ -90,11 +101,11 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
     }
 
     private void updateViews() {
+        Log.i(LOG_TAG, "MSG! updateViews()");
+
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            if (!MainActivity.tabletUsed) {
-                toolbar.setTitle(mStep.getShortDescription());
-            }
+        if (toolbar != null && !MainActivity.tabletUsed) {
+            toolbar.setTitle(mStep.getShortDescription());
         }
         if (tvTitle != null) {
             tvTitle.setText(mStep.getShortDescription());
@@ -111,32 +122,35 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
         } else if (mThumbnailUri != null && !mThumbnailUri.toString().equals("")) {
             playerUri = mThumbnailUri;
         } else {
-            Log.i(LOG_TAG, "MSG! updateViews() else outcome, set exoplayer GONE");
             playerUri = null;
         }
-        if (ivPreviousStep != null && ivNextStep != null) {
-            if (mStepPosition == 0) {
-                ivPreviousStep.setVisibility(View.INVISIBLE);
-            } else if (mStepPosition == mStepArray.size() - 1) {
-                ivNextStep.setVisibility(View.INVISIBLE);
-            } else {
-                ivNextStep.setVisibility(View.VISIBLE);
-                ivPreviousStep.setVisibility(View.VISIBLE);
-            }
-        }
         initializePlayer(playerUri);
+        setNextAndPreviousButtonVisibility();
     }
 
-    private void setViews() {
+    private void setupNextPreviousButtonListener() {
+        Log.i(LOG_TAG, "MSG! setupNextPreviousButtonListener()");
         if (ivPreviousStep != null && ivNextStep != null) {
             ivPreviousStep.setOnClickListener(this);
             ivNextStep.setOnClickListener(this);
         }
     }
 
+    private void setNextAndPreviousButtonVisibility() {
+        Log.i(LOG_TAG, "MSG! setNextAndPreviousButtonVisibility()");
+        if (mStepPosition == 0) {
+            ivPreviousStep.setVisibility(View.INVISIBLE);
+        } else if (mStepPosition == mStepArray.size() - 1) {
+            ivNextStep.setVisibility(View.INVISIBLE);
+        } else {
+            ivNextStep.setVisibility(View.VISIBLE);
+            ivPreviousStep.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onClick(View v) {
-        Log.i(LOG_TAG, "MSG! onClick!");
+        Log.i(LOG_TAG, "MSG! onClick()");
 
         if (v == ivPreviousStep) {
             mStepPosition -= 1;
@@ -152,7 +166,7 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
     }
 
     private void initializePlayer(Uri videoUri) {
-        Log.i(LOG_TAG, "MSG! VideoUri: " + videoUri);
+        Log.i(LOG_TAG, "MSG! initializePlayer(); \nVideoUri: " + videoUri);
 
         if (videoUri != null && !videoUri.toString().equals("")) {
             if (mExoPlayer == null && playerView != null) {
@@ -160,7 +174,8 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
                 TrackSelector trackSelector = new DefaultTrackSelector();
                 LoadControl loadControl = new DefaultLoadControl();
 
-                mExoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity().getApplicationContext(), trackSelector, loadControl);
+                mExoPlayer = ExoPlayerFactory.newSimpleInstance(
+                        getActivity().getApplicationContext(), trackSelector, loadControl);
                 playerView.setPlayer(mExoPlayer);
 
                 startPlayer(videoUri);
@@ -174,15 +189,19 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
     }
 
     private void startPlayer(Uri videoUri) {
+        Log.i(LOG_TAG, "MSG! startPlayer(); \nPlayer position: " + mPlayerPosition);
         String mUserAgent = Util.getUserAgent(getActivity().getApplicationContext(), "BakingApp");
         MediaSource mediaSource = new ExtractorMediaSource(videoUri, new DefaultDataSourceFactory(
                 getActivity().getApplicationContext(), mUserAgent), new DefaultExtractorsFactory(), null, null);
         mExoPlayer.prepare(mediaSource);
-        mExoPlayer.setPlayWhenReady(true);
+
+
+        mExoPlayer.seekTo(mPlayerPosition);
+        mExoPlayer.setPlayWhenReady(mPlayerPlayWhenReady);
     }
 
     private void releasePlayer() {
-        Log.i(LOG_TAG, "MSG! exoPlayer, time to destroy!");
+        Log.i(LOG_TAG, "MSG! releasePlayer()");
         if (mExoPlayer != null) {
             mExoPlayer.stop();
             mExoPlayer.release();
@@ -191,10 +210,21 @@ public class FragmentStepDetails extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        Log.i(LOG_TAG, "MSG! onStop()");
+        super.onStop();
 
         releasePlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.i(LOG_TAG, "MSG! onSaveInstanceState(); \nPlayer Position: " + mExoPlayer.getCurrentPosition());
+        Log.i(LOG_TAG, "MSG! onSaveInstanceState(); \nPlayer State: " + mExoPlayer.getPlaybackState());
+        super.onSaveInstanceState(outState);
+
+        outState.putLong(EXOPLAYER_POSITION, mExoPlayer.getCurrentPosition());
+        outState.putBoolean(EXOPLAYER_STATE, mExoPlayer.getPlayWhenReady());
     }
 
     public FragmentStepDetails() {

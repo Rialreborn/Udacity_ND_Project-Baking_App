@@ -45,6 +45,13 @@
         <item name="android:layout_marginLeft">@dimen/ingredientLeft</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+    <style name="ingredientsWidget">
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginTop">@dimen/ingredientTop</item>
+        <item name="android:layout_marginStart">@dimen/ingredientLeft</item>
+        <item name="android:layout_marginLeft">@dimen/ingredientLeft</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
 
     <!--Details Screen-->
     <!-- Serving -->

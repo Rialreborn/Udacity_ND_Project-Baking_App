@@ -5,10 +5,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,8 +21,9 @@ import com.example.zane.bakingapp.objects.Ingredients;
 import com.example.zane.bakingapp.objects.Recipe;
 import com.example.zane.bakingapp.objects.Step;
 import com.example.zane.bakingapp.recipe.StepsAdapter;
-import com.example.zane.bakingapp.utils.Constants;
-import com.example.zane.bakingapp.utils.LoadRecipes;
+import com.example.zane.bakingapp.widget.WidgetProvider;
+import com.example.zane.bakingapp.widget.WidgetRemoteViewsFactory;
+import com.example.zane.bakingapp.widget.WidgetService;
 
 import java.util.ArrayList;
 
@@ -49,7 +48,6 @@ public class FragmentRecipeDetails extends Fragment {
     private ArrayList<Recipe> mRecipeArrayList;
     ArrayList<Ingredients> mIngredientsList;
     ArrayList<Step> mStepsList;
-    Context mContext;
     Uri mImageUri;
 
 
@@ -96,8 +94,9 @@ public class FragmentRecipeDetails extends Fragment {
 
     private void setupAdapter() {
         Log.i(LOG_TAG, "MSG! Recipe Name: " + mRecipe.getName());
+        Context context = getActivity().getApplicationContext();
 
-        StepsAdapter stepsAdapter = new StepsAdapter(mStepsList, mContext, new StepsAdapter.OnStepClickListener() {
+        StepsAdapter stepsAdapter = new StepsAdapter(mStepsList, context, new StepsAdapter.OnStepClickListener() {
             @Override
             public void onStepClicked(int position) {
                 FragmentStepDetails fragmentStepDetails = new FragmentStepDetails();
@@ -137,18 +136,20 @@ public class FragmentRecipeDetails extends Fragment {
         }
 
         String recipeList = builder.toString();
-        updateWidgetInfo(recipeList);
+        updateWidgetInfo();
 
         return recipeList;
     }
 
-    private void updateWidgetInfo(String list) {
+    private void updateWidgetInfo() {
+        Log.i(LOG_TAG, "MSG! updateWidgetInfo()");
+
+        MainActivity.ingredientArray = mIngredientsList;
         Context context = getActivity().getApplicationContext();
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_ingredient);
-        ComponentName thisWidget = new ComponentName(context, WidgetIngredient.class);
-        remoteViews.setTextViewText(R.id.tv_widget_ingredients, list);
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.setComponent(new ComponentName(context, WidgetProvider.class));
+        context.sendBroadcast(intent);
+
     }
 
     public FragmentRecipeDetails() {

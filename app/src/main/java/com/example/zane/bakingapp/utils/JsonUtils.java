@@ -21,7 +21,7 @@ import java.util.Scanner;
  * Created by Zane on 03/06/2018.
  */
 
-public class JsonUtils {
+public final class JsonUtils {
 
     private static final String LOG_TAG = JsonUtils.class.getSimpleName();
 
