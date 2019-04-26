@@ -4,7 +4,7 @@
 ## Project Overview
 Android Project for [Udacity Android Developer Nanodegree.](https://eu.udacity.com/course/android-developer-nanodegree-by-google--nd801) 
 
-In this project, build an app to view video recipes.
+This projects aim is to build an app to view video recipes.
 
 You will productionize an app, taking it from a functional state to a production-ready state. This will involve finding and handling error cases, adding accessibility features, allowing for localization, adding a widget, and adding a library.
 
