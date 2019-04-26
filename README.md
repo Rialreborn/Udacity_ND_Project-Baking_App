@@ -29,6 +29,8 @@ Through this project, you will:
 - ButterKnife
 - Picasso
 
-![Alt text](movies_one.png?raw=true "Movies Image One")
-![Alt text](movies_two.png?raw=true "Movies Image Two")
-![Alt text](movies_three.png?raw=true "Movies Image Three")
+![Alt text](baking_one.png?raw=true "Baking Image One")
+![Alt text](baking_two.png?raw=true "Baking Image Two")
+
+![Alt text](baking_three.png?raw=true "Baking Image Three")
+![Alt text](baking_four.png?raw=true "Baking Image Four")
